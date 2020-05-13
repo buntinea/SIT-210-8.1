@@ -1,0 +1,23 @@
+string description;
+
+int tooHot = 30;
+int hot = 25;
+int cold = 21;
+int tooCold = 19;
+
+if(temp >= tooHot){
+	    description = "too hot!";
+	}
+	else if(temp < tooHot && temp >= hot){
+	    description = "hot";
+	}
+	else if(temp < hot && temp >= cold){
+	    description = "just right";
+	}
+	else if(temp < cold && temp >= tooCold){
+	    description = "cold";
+	}
+	
+	else{
+	    description = "too cold";
+	}
