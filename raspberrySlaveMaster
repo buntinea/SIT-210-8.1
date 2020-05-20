@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <fcntl.h>
 #include <linux/i2c-dev.h>
 #include <stdio.h>
@@ -6,12 +5,13 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+
+
 int main(int argc, char *argv[]) {
   int file;
   int addr = 0x10;
 
-  // Code adapted from:
-  // http://elinux.org/Interfacing_with_I2C_Devices
+  
 
   if ((file = open("/dev/i2c-1",O_RDWR)) < 0) {
     printf("Failed to open the bus.");
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  char buf[6];
+  char buf[4];
   buf[0] = buf[1] = 0;
 
   if (write(file, buf, 2) != 2) {
@@ -36,7 +36,39 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  printf("reg0=%ld\n", *(unsigned long*)buf);
+
+  
+unsigned long temp = *(unsigned long*)buf;
+
+printf("temperature(celsius)=%ld\n", temp);
+
+
+
+
+int tooHot = 30;
+int hot = 25;
+int cold = 20;
+int tooCold = 17;
+
+if((int)temp >= tooHot){
+	    printf("too hot!\n");
+	}
+	else if((int)temp < tooHot && (int)temp >= hot){
+	    printf("hot!\n");
+	}
+	else if((int)temp < hot && (int)temp >= cold){
+	    printf("just right\n");
+	}
+	else if((int)temp < cold && (int)temp >= tooCold){
+	    printf("cold\n");
+	}
+	
+	else{
+	    printf("too cold\n");
+	    
+	}
+	
+	
 
   return 0;
 }
